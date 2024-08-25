@@ -1,0 +1,37 @@
+<!-- Display list of mails -->
+<div *ngFor="let mail of mail">
+  <div>{{ mail.name }}</div>
+  <div>{{ mail.email }}</div>
+  <div>{{ mail.mailType }}</div>
+  <div>{{ mail.detail }}</div>
+  <div>{{ mail.date }}</div>
+  <button (click)="editMail(mail)">Edit</button>
+</div>
+<!-- Edit Form -->
+<form class="mail-form" (ngSubmit)="saveMail()">
+  <div>
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" [(ngModel)]="mail.name" placeholder="Enter your name" required>
+  </div>
+  <div>
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" [(ngModel)]="mail.email" placeholder="Enter your email" required>
+  </div>
+  <div>
+    <label for="type">Mail Type</label>
+    <select id="type" name="type" [(ngModel)]="mail.mailType">
+      <option *ngFor="let type of mailTypes" [value]="type">{{ type }}</option>
+    </select>
+  </div>
+  <div>
+    <label for="detail">Details</label>
+    <textarea id="detail" name="detail" [(ngModel)]="mail.detail" placeholder="Enter details"></textarea>
+  </div>
+  <div>
+    <label for="date">Date</label>
+    <input type="date" id="date" name="date" [(ngModel)]="mail.date" required>
+  </div>
+  <button type="submit">Submit</button>
+  
+  <button type="button" (click)="cancel()">Cancel</button>
+</form>

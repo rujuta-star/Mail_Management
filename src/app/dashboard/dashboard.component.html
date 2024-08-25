@@ -1,0 +1,85 @@
+<div class="box">
+  <nav>
+    <div class="nav-left">
+      <h2>Your Mailbox</h2>
+      <button class="btnunread">
+        {{ unreadEmailsCount }} Unread emails
+      </button>
+
+    </div>
+    <div class="nav-right">
+      <button class="btn-add" (click)="addMail()">+</button>
+    </div>
+  </nav>
+
+  <div class="tab-buttons">
+    <button class="btn-tab" (click)="filterMessages('Inbox')">Inbox</button>
+    <button class="btn-tab" (click)="filterMessages('Sent')">Sent</button>
+    <button class="btn-tab" (click)="filterMessages('Spam')">Spam</button>
+    <button class="btn-tab" (click)="filterMessages('Deleted')">Deleted</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+
+        <th></th>
+        <th></th>
+        <th></th>
+        <th>Name</th>
+        <th>Mail Type</th>
+        <th>Detail</th>
+        <th>Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let email of filteredEmails; let i = index">
+        <td><input type="checkbox" [(ngModel)]="email.selected"></td>
+        <!-- Add Star Icon for Starring -->
+        <td>
+          <span class="star-icon" [ngClass]="{'starred': email.starred}" (click)="toggleStar(email)">
+            ★
+          </span>
+        </td>
+        <td><img [src]="email.image" class="user-image" alt="User Image"></td>
+
+
+        <td>{{ email.name }}</td>
+        <td>{{ email.mailType }}</td>
+        <td>{{ email.detail }}</td>
+        <td>{{ email.date | date:'dd-MM-yy' }}</td>
+
+        <td>
+          <button class="btn-edit" (click)="editMail(i)">Edit</button>
+        </td>
+        <td>
+          <button (click)="deleteMail(i)" class="icon-button">
+            <i class="fas fa-trash-alt" style="color: red;"></i>
+          </button>
+        </td>
+        
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- Form to Send New Email
+   <div *ngIf="showEmailForm" class="email-form">
+    <h3>Send New Email</h3>
+    <form (ngSubmit)="sendEmail()">
+      <div>
+        <label for="to">To:</label>
+        <input type="email" id="to" [(ngModel)]="newEmail.to" name="to" required>
+      </div>
+      <div>
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" [(ngModel)]="newEmail.subject" name="subject" required>
+      </div>
+      <div>
+        <label for="message">Message:</label>
+        <textarea id="message" [(ngModel)]="newEmail.message" name="message" required></textarea>
+      </div>
+      <button type="submit" class="btn-send">Send</button>
+      <button type="button" class="btn-cancel" (click)="cancelEmail()">Cancel</button>
+    </form>
+  </div> -->
